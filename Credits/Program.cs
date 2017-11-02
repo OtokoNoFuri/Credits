@@ -28,7 +28,6 @@ class Example
                 else
                     state[i] = true;
             }
-            Console.WriteLine("Нажмите 0 - ");
             Console.WriteLine("Нажмите 1 - создание нового счёта");
             Console.WriteLine("Нажмите 2 - списать деньги со счёта");
             Console.WriteLine("Нажмите 3 - узнать ваш текущий баланс");
