@@ -69,7 +69,7 @@ class Example
                     {
                         n = int.Parse(Console.ReadLine());
                     }
-                    catch (FormatException) { goto case '2'; }
+                    catch (FormatException) {continue; }
                     if (n >= cash.Count)
                     {
                         Console.WriteLine("Введите существующий счёт");
