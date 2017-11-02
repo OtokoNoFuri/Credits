@@ -36,6 +36,7 @@ class Example
             Console.WriteLine("Нажмите 6 - очистить экран");
             Console.WriteLine("Нажмите 7 - уничтожить счёт(доступно только при балансе свыше 50 рупий)");
             Console.WriteLine("Нажмите 8 - отсортировать счета(по возрастанию)");
+            Console.WriteLine("Нажмите 9 - лучше не нажимайте");
             switch (Console.ReadKey().KeyChar)
             {
                 case '1':
