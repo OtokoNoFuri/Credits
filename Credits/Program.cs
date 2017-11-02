@@ -27,14 +27,15 @@ class Example
                 }
                 else
                     state[i] = true;
-            } 
+            }
+            Console.WriteLine("Нажмите 0 - ");
             Console.WriteLine("Нажмите 1 - создание нового счёта");
             Console.WriteLine("Нажмите 2 - списать деньги со счёта");
             Console.WriteLine("Нажмите 3 - узнать ваш текущий баланс");
             Console.WriteLine("Нажмите 4 - увидеть все ваши счета");
             Console.WriteLine("Нажмите 5 - пополнить счёт");
             Console.WriteLine("Нажмите 6 - очистить экран");
-            Console.WriteLine("Нажмите 7 - уничтожить счёт(доступно только при балансе свыше 50 рупий)");
+            Console.WriteLine("Нажмите 7 - уничтожить счёт");
             Console.WriteLine("Нажмите 8 - отсортировать счета(по возрастанию)");
             Console.WriteLine("Нажмите 9 - лучше не нажимайте");
             switch (Console.ReadKey().KeyChar)
@@ -49,13 +50,13 @@ class Example
                     }
                     catch (FormatException)
                     {
-                        goto case '1';
+                       continue;
                     }
 
                     if (bmoney < 100)
                     {
                         Console.WriteLine("Повторите попытку, в этот раз с деньгой");
-                        goto case '1';
+                        continue; ;
                     }
                     cash.Add(bmoney);
                     state.Add(true);
@@ -73,12 +74,12 @@ class Example
                     if (n >= cash.Count)
                     {
                         Console.WriteLine("Введите существующий счёт");
-                        goto case '2';
+                        continue;
                     }
                     if (!state[n - 1])
                     {
                         Console.WriteLine("Сий счёт недоступен");
-                        goto case '2';
+                        continue;
                     }
                     Console.WriteLine("Сколько желаете снять?");
                     int money = 0;
@@ -86,11 +87,11 @@ class Example
                     {
                         money = int.Parse(Console.ReadLine());
                     }
-                    catch (FormatException) { goto case '2'; }
+                    catch (FormatException) { continue; }
                     if ( money < 100)
                     {
                         Console.WriteLine("Невозможно снять сумму меньше 100 шейкелей");
-                        goto case '2';
+                        continue;
                     }
                     cash[n - 1] -= money;
                     break;
@@ -123,11 +124,11 @@ class Example
                     {
                         key = int.Parse(Console.ReadLine());
                     }
-                    catch (FormatException) { goto case '5'; }
+                    catch (FormatException) { continue; }
                     if (key >= cash.Count)
                     {
                         Console.WriteLine("Введите номер существующего счёта");
-                        goto case '5';
+                        continue;
                     }
                     Console.WriteLine("Введите зачисляемую сумму на новый счёт(не меньше 100 рупий)");
                     int nsumm = 0;
@@ -137,13 +138,13 @@ class Example
                     }
                     catch (FormatException)
                     {
-                        goto case '5';
+                        continue;
                     }
 
                     if (nsumm < 100)
                     {
                         Console.WriteLine("Вот вам ещё одна попытка и в этот раз нужна сумма свыше 100 шейкелей.");
-                        goto case '5';
+                        continue;
                     }
                     cash[key - 1] += (nsumm);
                     break;
@@ -162,23 +163,28 @@ class Example
                     }
                     catch (FormatException)
                     {
-                        goto case '7';
+                        continue;
                     }
-                    if (num >= cash.Count)
+                    if (num > cash.Count)
                     {
                         Console.WriteLine("Введите существующий счёт");
-                        goto case '7';
-                    }
-                    if (cash[num - 1] < 100)
+                       continue;
+                    }  
+                    if (cash.Count>1)
                     {
-                        Console.WriteLine("Недостаточно золота на счету для его уничтожения, вы всё ещё должны банку {0}", cash[num]);
-                        goto case '7';
+                        if (num != 1)
+                        {
+                            cash[0]+=cash[num-1];
+                        }
+                        else
+                        {
+                            cash[1] += cash[0];
+                        }
                     }
                     cash.RemoveAt(num - 1);
                     break;
                 case '8':
                     Console.WriteLine();
-                    int q = 0;
                     for (int j = 0; j < cash.Count; j++)
                     {
                         for (int i = cash.Count - 2; i >= 0; i--)
